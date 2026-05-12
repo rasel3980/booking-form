@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Enter Your Details – Bay Pass Driving School</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html,body{overflow-x:hidden;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;}
+
+:root{
+  --blue:#1a3fa8;--red:#d0021b;--dark:#111827;--mid:#4b5563;
+  --border:#d1d5db;--white:#ffffff;--radius:5px;
+  /* 🔥 ALL GRADIENTS REPLACED WITH GOLDEN TONES BASED ON #e0cd53 */
+  --grad:linear-gradient(135deg, #e0cd53, #b57014);
+}
+
+body{
+  font-family:'Source Sans 3',sans-serif;background:#f0f2f5;
+  min-height:100vh;display:flex;align-items:flex-start;
+  justify-content:center;padding:40px 16px;
+}
+
+.card{
+  background:var(--white);width:100%;max-width:820px;
+  border-radius:10px;box-shadow:0 4px 24px rgba(0,0,0,.12);
+  padding:44px 52px 52px;
+}
+
+h1{
+  font-family:'Oswald',sans-serif;font-size:2.2rem;letter-spacing:.08em;
+  text-align:center;color:var(--dark);margin-bottom:32px;text-transform:uppercase;
+}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.full{grid-column:1/-1;}
+.field{display:flex;flex-direction:column;}
+
+input[type="text"],input[type="email"],select,.phone-container{
+  width:100%;height:46px;border:1.5px solid var(--border);
+  border-radius:var(--radius);background:var(--white);
+  font-family:inherit;font-size:.92rem;color:var(--dark);
+  padding:0 14px;outline:none;transition:border-color .2s;
+}
+select{
+  appearance:none;padding-right:36px;cursor:pointer;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%236b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+input::placeholder{color:#9ca3af;}
+input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,63,168,.12);}
+
+/* Phone container */
+.phone-container{display:flex;align-items:center;padding:0;position:relative;}
+.ph-input{
+  flex:1;border:none !important;height:100%;padding:0 14px;
+  outline:none;font-size:.95rem;background:transparent;
+  font-family:inherit;color:var(--dark);
+}
+.ph-input::placeholder{color:#9ca3af;}
+.country-selector{
+  display:flex;align-items:center;gap:6px;padding:0 12px;height:100%;
+  background:#f8fafc;border-right:1.5px solid var(--border);
+  cursor:pointer;border-radius:var(--radius) 0 0 var(--radius);
+  min-width:90px;user-select:none;
+}
+.flag-img{width:22px;height:15px;border:1px solid #ddd;object-fit:cover;border-radius:2px;}
+.dial-code{font-size:.9rem;color:#374151;font-weight:600;}
+.arrow-down{font-size:10px;color:#6b7280;transition:transform .3s;}
+.open .arrow-down{transform:rotate(180deg);}
+.country-dropdown{
+  display:none;position:absolute;top:100%;left:0;width:320px;
+  max-height:260px;overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none;
+  background:#fff;border:1px solid #ddd;border-radius:6px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);z-index:1000;margin-top:5px;
+}
+.country-dropdown::-webkit-scrollbar{display:none;}
+.country-dropdown.show{display:block;}
+.country-item{display:flex;align-items:center;gap:12px;padding:10px 15px;cursor:pointer;font-size:.88rem;transition:background .15s;}
+.country-item:hover{background:#f0f4ff;}
+.item-flag{width:22px;height:14px;border:1px solid #eee;border-radius:2px;object-fit:cover;}
+.item-name{flex:1;color:#1e293b;}
+.item-dial{color:#94a3b8;font-weight:500;}
+.dd-divider{height:1px;background:#e5e7eb;margin:3px 0;}
+
+/* Sessions */
+.sessions{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px;}
+.session-card{
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 4px 18px rgba(0,0,0,.12);
+  border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;
+}
+.session-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.16);}
+.session-hdr{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  color:#fff;font-family:'Oswald',sans-serif;font-size:1.05rem;
+  padding:16px 12px;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--grad);  /* golden unified gradient */
+}
+.session-body{padding:20px 16px;background:#fff;display:flex;flex-direction:column;gap:14px;}
+.date-btn{
+  display:flex;align-items:center;gap:12px;font-size:.9rem;
+  color:var(--mid);font-weight:600;border:1.5px solid var(--border);
+  padding:13px 14px;border-radius:8px;cursor:pointer;position:relative;
+  transition:border-color .2s,background .2s;user-select:none;
+}
+.date-btn:hover{border-color:var(--blue);background:#f8faff;}
+
+/* Animated Calendar Icon */
+.cal-icon{
+  width:34px;height:34px;flex-shrink:0;
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+}
+.cal-icon svg{
+  width:34px;height:34px;display:block;
+  animation:calSwing 2.2s ease-in-out infinite;
+  transform-origin:50% 8%;
+}
+@keyframes calSwing{
+  0%,100%{transform:rotate(-7deg);}
+  50%{transform:rotate(7deg);}
+}
+.cal-page{
+  position:absolute;bottom:2px;left:50%;
+  width:9px;height:6px;
+  background:var(--grad);   /* ✨ golden gradient integrated ✨ */
+  border-radius:1px;opacity:0;transform-origin:top center;
+  animation:pageFall 2.2s ease-in-out infinite;
+}
+@keyframes pageFall{
+  0%{opacity:0;transform:translateX(-50%) translateY(-6px) rotate(-5deg);}
+  25%{opacity:1;}
+  75%{opacity:.7;transform:translateX(-50%) translateY(5px) rotate(5deg);}
+  100%{opacity:0;transform:translateX(-50%) translateY(12px) rotate(0deg);}
+}
+
+/* Terms */
+.terms-block{margin-top:24px;display:flex;flex-direction:column;gap:12px;}
+.terms-row{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--dark);line-height:1.55;font-weight:600;}
+.terms-row.small{font-weight:400;color:var(--mid);font-size:.83rem;}
+input[type="checkbox"]{width:17px;height:17px;accent-color:var(--blue);flex-shrink:0;margin-top:2px;cursor:pointer;}
+.btn-readmore{
+  display:inline-block;background:var(--blue);color:#fff;
+  font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:4px;
+  border:none;cursor:pointer;margin-left:6px;vertical-align:middle;transition:background .2s;
+}
+.btn-readmore:hover{background:#1534a0;}
+a{color:var(--blue);text-decoration:underline;}
+
+/* Action buttons */
+.actions{display:flex;justify-content:center;gap:18px;margin-top:35px;flex-wrap:wrap;}
+.btn{
+  font-family:'Oswald',sans-serif;font-size:1.1rem;padding:14px 40px;
+  border-radius:6px;cursor:pointer;font-weight:700;
+  transition:all .2s ease;white-space:nowrap;
+}
+.btn-primary{background:var(--grad);color:#fff;border:none;box-shadow:0 4px 12px rgba(224,205,83,.3);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(224,205,83,.5);filter:brightness(1.05);}
+
+/* PAY LATER — gradient border matching golden theme */
+.btn-outline-wrap{
+  position:relative;display:inline-block;border-radius:6px;
+  padding:2.5px;background:var(--grad);transition:all .2s ease;
+}
+.btn-outline-wrap:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(224,205,83,.4);}
+.btn-outline-wrap .btn-outline{
+  display:block;background:#fff;border:none;border-radius:4px;
+  padding:12px 38px;font-family:'Oswald',sans-serif;font-size:1.1rem;
+  font-weight:700;cursor:pointer;color:var(--dark);white-space:nowrap;
+  -webkit-text-fill-color:var(--dark);
+}
+.btn-outline-wrap:hover .btn-outline{background:#fefaea;}
+
+/* ── Custom Date Picker (Golden Gradient integrated) ── */
+.dp-overlay{
+  display:none;position:fixed;inset:0;z-index:99998;
+  background:rgba(0,0,0,.4);
+  align-items:center;justify-content:center;
+}
+.dp-overlay.show{display:flex;}
+.dp-box{
+  background:#fff;border-radius:14px;
+  box-shadow:0 16px 48px rgba(0,0,0,.22);
+  width:320px;overflow:hidden;
+  animation:dpFade .2s ease;
+  font-family:'Source Sans 3',sans-serif;
+}
+@keyframes dpFade{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.dp-header{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--grad);color:#fff;padding:14px 16px;
+}
+.dp-title{font-family:'Oswald',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.04em;}
+.dp-nav{
+  background:none;border:none;color:#fff;font-size:1.4rem;
+  cursor:pointer;padding:2px 10px;border-radius:4px;
+  transition:background .15s;line-height:1;
+}
+.dp-nav:hover{background:rgba(0,0,0,.2);}
+.dp-month-row{display:flex;align-items:center;justify-content:center;padding:12px 16px 4px;}
+.dp-month-label{font-weight:700;font-size:.95rem;color:#111827;}
+.dp-weekdays{display:grid;grid-template-columns:repeat(7,1fr);padding:0 10px;}
+.dp-weekdays span{text-align:center;font-size:.72rem;font-weight:700;color:#9ca3af;padding:5px 0;}
+.dp-days{display:grid;grid-template-columns:repeat(7,1fr);padding:0 10px 10px;}
+.dp-day{
+  text-align:center;padding:8px 2px;font-size:.85rem;
+  cursor:pointer;border-radius:50%;color:#111827;
+  transition:background .15s,color .15s;
+}
+.dp-day:hover:not(.disabled):not(.other-month){background:#fef3ca;color:#b57014;}
+.dp-day.today{font-weight:700;color:#e0cd53;}
+.dp-day.selected{background:var(--grad);color:#fff !important;font-weight:700;}
+.dp-day.other-month{color:#d1d5db;pointer-events:none;}
+.dp-day.disabled{color:#e5e7eb;cursor:default;pointer-events:none;}
+.dp-footer{
+  display:flex;justify-content:flex-end;gap:8px;
+  padding:10px 16px;border-top:1px solid #f3f4f6;
+}
+.dp-btn-cancel{
+  background:none;border:1.5px solid #d1d5db;color:#6b7280;
+  border-radius:6px;padding:7px 16px;cursor:pointer;font-size:.85rem;font-weight:600;
+}
+.dp-btn-cancel:hover{background:#f9fafb;}
+.dp-btn-ok{
+  background:var(--grad);color:#fff;border:none;
+  border-radius:6px;padding:7px 18px;cursor:pointer;font-size:.85rem;font-weight:700;
+}
+.dp-btn-ok:hover{filter:brightness(1.08);}
+
+/* Terms Popup */
+.terms-popup{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  display:none;align-items:flex-start;justify-content:center;
+  padding:15px;z-index:99999;overflow-y:auto;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.terms-popup::-webkit-scrollbar{display:none;}
+.terms-popup.show{display:flex;}
+.popup-box{
+  width:100%;max-width:560px;max-height:90vh;overflow-y:auto;
+  scrollbar-width:none;-ms-overflow-style:none;
+  background:#fff;border-radius:12px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  animation:popupFade .25s ease;margin:auto;
+}
+.popup-box::-webkit-scrollbar{display:none;}
+@keyframes popupFade{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.popup-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;border-bottom:2px solid #e9edf2;
+  background:#fff;position:sticky;top:0;z-index:2;
+}
+.popup-title{font-size:1.2rem;font-weight:700;color:#0a2540;font-family:'Oswald',sans-serif;}
+.popup-close{background:none;border:none;font-size:32px;cursor:pointer;color:#6c757d;line-height:1;}
+.popup-close:hover{color:#000;}
+.popup-body{padding:28px 25px 20px;}
+.popup-body h2{font-size:1.1rem;font-weight:700;margin:24px 0 10px;color:#111827;border-left:4px solid #e0cd53;padding-left:12px;}
+.popup-body h2:first-of-type{margin-top:0;}
+.popup-body ul{padding-left:20px;margin:0 0 16px;}
+.popup-body li{margin-bottom:10px;color:#1f2a44;line-height:1.55;font-size:.93rem;}
+.popup-body strong{font-weight:700;color:#0f2b3d;}
+.popup-footer{padding:16px 25px 24px;text-align:center;border-top:1px solid #e9edf2;}
+.close-popup-btn{
+  background:var(--grad);color:#fff;border:none;border-radius:40px;
+  padding:10px 32px;font-size:1rem;font-weight:600;cursor:pointer;transition:.2s;
+}
+.close-popup-btn:hover{filter:brightness(1.1);}
+
+/* Responsive */
+@media(max-width:768px){
+  .card{padding:32px 28px 40px;}
+  .sessions{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:600px){
+  .card{padding:24px 16px 32px;}
+  h1{font-size:1.6rem;}
+  .grid{grid-template-columns:1fr;}
+  .full{grid-column:1;}
+  .sessions{grid-template-columns:1fr;}
+  .actions{flex-direction:column;align-items:center;gap:14px;}
+  .btn,.btn-outline-wrap{width:100%;}
+  .btn-outline-wrap .btn-outline{width:100%;}
+  .country-dropdown{width:260px;}
+}
+@media(max-width:380px){
+  h1{font-size:1.35rem;}
+  .card{padding:18px 12px 28px;}
+  .btn{font-size:.95rem;padding:12px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Terms Popup ── -->
+<div class="terms-popup" id="termsPopup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <div class="popup-title">Driving School Policies and Regulations</div>
+      <button class="popup-close" id="popupCloseX">&times;</button>
+    </div>
+    <div class="popup-body">
+      <h2>1. Student Requirements</h2>
+      <ul>
+        <li><strong>Eligibility:</strong> Students must be at least 15½ years old. A valid learner's permit is required before behind-the-wheel training.</li>
+        <li><strong>Documentation:</strong> Valid learner's permit and ID required before each lesson.</li>
+        <li><strong>Health and Safety:</strong> Students must be free of drugs or alcohol. Suspected impairment results in immediate cancellation.</li>
+      </ul>
+      <h2>2. Instructor Requirements</h2>
+      <ul>
+        <li><strong>Licensing:</strong> All instructors are DMV-certified and background-checked.</li>
+        <li><strong>Conduct:</strong> Instructors must maintain professional behavior and adhere to driving laws.</li>
+        <li><strong>Training:</strong> Periodic training to stay current with state laws.</li>
+      </ul>
+      <h2>3. Scheduling and Cancellations</h2>
+      <ul>
+        <li><strong>Booking:</strong> First-come, first-served. Confirmed at least 24 hours before the lesson.</li>
+        <li><strong>Cancellation:</strong> 48 hours notice required to avoid fees.</li>
+        <li><strong>No-Show:</strong> Forfeits lesson and may incur a no-show fee.</li>
+      </ul>
+      <h2>4. Payments and Refunds</h2>
+      <ul>
+        <li><strong>Payment:</strong> Full payment at booking unless otherwise arranged.</li>
+        <li><strong>Refunds:</strong> Only under specific conditions; cancellations may incur fees.</li>
+        <li><strong>Packages:</strong> Discounts available; unused lessons may not be refunded after a period.</li>
+      </ul>
+      <h2>5. Use of School Property</h2>
+      <ul>
+        <li><strong>Vehicles:</strong> Students responsible for damages from reckless behavior.</li>
+        <li><strong>Materials:</strong> Must be returned in good condition.</li>
+        <li><strong>Dress Code:</strong> Closed-toe shoes and appropriate clothing required.</li>
+      </ul>
+      <h2>6. Safety and Conduct</h2>
+      <ul>
+        <li><strong>Seatbelts:</strong> Required at all times.</li>
+        <li><strong>Cell Phones:</strong> Prohibited during lessons.</li>
+        <li><strong>Behavior:</strong> Respectful behavior required at all times.</li>
+      </ul>
+      <h2>7. Termination of Lessons</h2>
+      <ul>
+        <li><strong>School's Right:</strong> May terminate for repeated violations or dangerous behavior.</li>
+        <li><strong>Student's Right:</strong> May terminate enrollment subject to refund policy.</li>
+      </ul>
+      <h2>8. Compliance with California DMV</h2>
+      <ul>
+        <li><strong>Laws:</strong> All lessons comply with California DMV guidelines.</li>
+        <li><strong>Testing:</strong> School prepares students but does not guarantee passing.</li>
+      </ul>
+      <h2>9. Privacy and Confidentiality</h2>
+      <ul>
+        <li><strong>Data:</strong> Personal information kept confidential.</li>
+        <li><strong>Recordings:</strong> Not permitted without consent.</li>
+      </ul>
+      <h2>10. Terms And Condition</h2>
+      <ul>
+        <li>Cancellations less than 24 hours before appointment incur a $75.00 fee.</li>
+      </ul>
+      <h2>11. Freeway Driving Terms</h2>
+      <ul>
+        <li>Freeway driving introduced only when instructor determines student is ready.</li>
+      </ul>
+      <p style="font-size:.85rem;color:#6c757d;margin-top:16px;">Rules may be customized to align with California DMV regulations.</p>
+    </div>
+    <div class="popup-footer">
+      <button class="close-popup-btn" id="popupCloseBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Custom Date Picker Overlay ── -->
+<div class="dp-overlay" id="dp-overlay">
+  <div class="dp-box">
+    <div class="dp-header">
+      <button class="dp-nav" id="dp-prev">&#8592;</button>
+      <div class="dp-title" id="dp-header-title">Select Date</div>
+      <button class="dp-nav" id="dp-next">&#8594;</button>
+    </div>
+    <div class="dp-month-row">
+      <span class="dp-month-label" id="dp-month-label"></span>
+    </div>
+    <div class="dp-weekdays">
+      <span>Su</span><span>Mo</span><span>Tu</span><span>We</span>
+      <span>Th</span><span>Fr</span><span>Sa</span>
+    </div>
+    <div class="dp-days" id="dp-days"></div>
+    <div class="dp-footer">
+      <button class="dp-btn-cancel" id="dp-cancel">Cancel</button>
+      <button class="dp-btn-ok" id="dp-ok">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main Card ── -->
+<div class="card">
+  <h1>Enter Your Details</h1>
+  <div class="grid">
+
+    <div class="field"><input type="text" placeholder="Student's Legal First Name"/></div>
+    <div class="field"><input type="text" placeholder="Student's Legal Last Name"/></div>
+
+    <div class="field">
+      <input type="text" id="dob-input" placeholder=" Student Date Of Birth MM/DD/YYYY" maxlength="10" autocomplete="off"/>
+    </div>
+    <div class="field"><input type="text" placeholder="Parent's Complete Legal Name"/></div>
+
+    <div class="field"><input type="email" placeholder="Parents/Student's Email"/></div>
+
+    <!-- Student Phone -->
+    <div class="field">
+      <div class="phone-container" id="cont-stu">
+        <div class="country-selector" id="sel-stu">
+          <img src="https://flagcdn.com/w40/us.png" class="flag-img" id="flag-stu" alt="US"/>
+          <span class="dial-code" id="code-stu">+1</span>
+          <span class="arrow-down">&#9660;</span>
+        </div>
+        <input type="text" class="ph-input phone-mask" id="input-stu" placeholder="Student's Phone Number" maxlength="14"/>
+        <div class="country-dropdown" id="dd-stu"></div>
+      </div>
+    </div>
+
+    <!-- Parent Phone -->
+    <div class="field">
+      <div class="phone-container" id="cont-par">
+        <div class="country-selector" id="sel-par">
+          <img src="https://flagcdn.com/w40/us.png" class="flag-img" id="flag-par" alt="US"/>
+          <span class="dial-code" id="code-par">+1</span>
+          <span class="arrow-down">&#9660;</span>
+        </div>
+        <input type="text" class="ph-input phone-mask" id="input-par" placeholder="Parent's Phone Number" maxlength="14"/>
+        <div class="country-dropdown" id="dd-par"></div>
+      </div>
+    </div>
+
+    <div class="field"><input type="text" placeholder="Home Address"/></div>
+    <div class="field"><input type="text" value="Alameda" readonly style="background:#f3f4f6;color:#6b7280;cursor:not-allowed;" tabindex="-1"/></div>
+    <div class="field"><input type="text" value="CA" readonly style="background:#f3f4f6;color:#6b7280;cursor:not-allowed;" tabindex="-1"/></div>
+    <div class="field"><input type="text" placeholder="Zip Code*"/></div>
+    <div class="field"><input type="text" value="USA" readonly style="background:#f3f4f6;color:#6b7280;cursor:not-allowed;" tabindex="-1"/></div>
+
+    <div class="field full">
+      <select>
+        <option value="" disabled selected>Select Package*</option>
+        <option>Behind The Wheel Training Package: 6 Hours : $540.00</option>
+        <option>Behind The Wheel Training Package: 10 Hours : $850.00</option>
+        <option>DMV Test Accompany Only : $200.00</option>
+      </select>
+    </div>
+
+    <!-- Sessions -->
+    <div class="full sessions">
+      <!-- SESSION 1 -->
+      <div class="session-card">
+        <div class="session-hdr">SESSION 1</div>
+        <div class="session-body">
+          <div class="date-btn" id="btn-s1">
+            <div class="cal-icon">
+              <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="28" height="23" rx="3" fill="#1d4ed8"/>
+                <rect x="3" y="7" width="28" height="9" rx="3" fill="#1d4ed8"/>
+                <rect x="5" y="14" width="24" height="14" rx="2" fill="white" opacity="0.15"/>
+                <rect x="9" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="22" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="8" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="22" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="8" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+              </svg>
+              <div class="cal-page"></div>
+            </div>
+            <span id="l1">- Select Your Date -</span>
+          </div>
+          <select>
+            <option value="">Hours*</option>
+            <option>08:00 AM - 10:00 AM</option><option>09:00 AM - 11:00 AM</option>
+            <option>10:00 AM - 12:00 PM</option><option>11:00 AM - 01:00 PM</option>
+            <option>12:00 PM - 02:00 PM</option><option>01:00 PM - 03:00 PM</option>
+            <option>02:00 PM - 04:00 PM</option><option>03:00 PM - 05:00 PM</option>
+            <option>04:00 PM - 06:00 PM</option><option>05:00 PM - 07:00 PM</option>
+            <option>06:00 PM - 08:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <!-- SESSION 2 -->
+      <div class="session-card">
+        <div class="session-hdr">SESSION 2</div>
+        <div class="session-body">
+          <div class="date-btn" id="btn-s2">
+            <div class="cal-icon">
+              <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="28" height="23" rx="3" fill="#1d4ed8"/>
+                <rect x="3" y="7" width="28" height="9" rx="3" fill="#1d4ed8"/>
+                <rect x="5" y="14" width="24" height="14" rx="2" fill="white" opacity="0.15"/>
+                <rect x="9" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="22" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="8" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="22" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="8" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+              </svg>
+              <div class="cal-page"></div>
+            </div>
+            <span id="l2">- Select Your Date -</span>
+          </div>
+          <select>
+            <option value="">Hours*</option>
+            <option>08:00 AM - 10:00 AM</option><option>09:00 AM - 11:00 AM</option>
+            <option>10:00 AM - 12:00 PM</option><option>11:00 AM - 01:00 PM</option>
+            <option>12:00 PM - 02:00 PM</option><option>01:00 PM - 03:00 PM</option>
+            <option>02:00 PM - 04:00 PM</option><option>03:00 PM - 05:00 PM</option>
+            <option>04:00 PM - 06:00 PM</option><option>05:00 PM - 07:00 PM</option>
+            <option>06:00 PM - 08:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <!-- SESSION 3 -->
+      <div class="session-card">
+        <div class="session-hdr">SESSION 3</div>
+        <div class="session-body">
+          <div class="date-btn" id="btn-s3">
+            <div class="cal-icon">
+              <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="28" height="23" rx="3" fill="#1d4ed8"/>
+                <rect x="3" y="7" width="28" height="9" rx="3" fill="#1d4ed8"/>
+                <rect x="5" y="14" width="24" height="14" rx="2" fill="white" opacity="0.15"/>
+                <rect x="9" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="22" y="4" width="3" height="7" rx="1.5" fill="#d0021b"/>
+                <rect x="8" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="22" y="18" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="8" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+                <rect x="15" y="23" width="4" height="3" rx="1" fill="white" opacity="0.8"/>
+              </svg>
+              <div class="cal-page"></div>
+            </div>
+            <span id="l3">- Select Your Date -</span>
+          </div>
+          <select>
+            <option value="">Hours*</option>
+            <option>08:00 AM - 10:00 AM</option><option>09:00 AM - 11:00 AM</option>
+            <option>10:00 AM - 12:00 PM</option><option>11:00 AM - 01:00 PM</option>
+            <option>12:00 PM - 02:00 PM</option><option>01:00 PM - 03:00 PM</option>
+            <option>02:00 PM - 04:00 PM</option><option>03:00 PM - 05:00 PM</option>
+            <option>04:00 PM - 06:00 PM</option><option>05:00 PM - 07:00 PM</option>
+            <option>06:00 PM - 08:00 PM</option>
+          </select>
+        </div>
+      </div>
+    </div><!-- /sessions -->
+
+  </div><!-- /grid -->
+
+  <!-- Terms -->
+  <div class="terms-block">
+    <div class="terms-row">
+      <input type="checkbox" id="t1" checked/>
+      <label for="t1">Please Acknowledge Terms And Condition *
+        <button class="btn-readmore" id="readMoreBtn" type="button">Read more</button>
+      </label>
+    </div>
+    <div class="terms-row small">
+      <input type="checkbox" id="t2" checked/>
+      <label for="t2">I have read and agree to the <a href="#">Privacy Policy</a> and consent to receive SMS communications from <strong>Bay Pass Driving School</strong>. By providing your phone number, you agree to receive SMS messages regarding: driving lesson scheduling, appointment reminders, instructor notifications, DMV test rental updates, billing notifications, customer support responses, and promotional offers (if opted in). Message and data rates may apply. Message frequency may vary. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for assistance.</label>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="actions">
+    <button class="btn btn-primary" id="payNowBtn">PAY NOW &amp; SAVE 2%</button>
+    <div class="btn-outline-wrap">
+      <button class="btn-outline" id="payLaterBtn">PAY LATER</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* ══════════════════════════════
+     COUNTRY DATA
+  ══════════════════════════════ */
+  var COUNTRIES = [
+    {iso:'us',name:'United States',dial:'+1'},{iso:'gb',name:'United Kingdom',dial:'+44'},
+    {iso:'af',name:'Afghanistan',dial:'+93'},{iso:'al',name:'Albania',dial:'+355'},
+    {iso:'dz',name:'Algeria',dial:'+213'},{iso:'ad',name:'Andorra',dial:'+376'},
+    {iso:'ao',name:'Angola',dial:'+244'},{iso:'ar',name:'Argentina',dial:'+54'},
+    {iso:'am',name:'Armenia',dial:'+374'},{iso:'au',name:'Australia',dial:'+61'},
+    {iso:'at',name:'Austria',dial:'+43'},{iso:'az',name:'Azerbaijan',dial:'+994'},
+    {iso:'bs',name:'Bahamas',dial:'+1'},{iso:'bh',name:'Bahrain',dial:'+973'},
+    {iso:'bd',name:'Bangladesh',dial:'+880'},{iso:'bb',name:'Barbados',dial:'+1'},
+    {iso:'by',name:'Belarus',dial:'+375'},{iso:'be',name:'Belgium',dial:'+32'},
+    {iso:'bz',name:'Belize',dial:'+501'},{iso:'bj',name:'Benin',dial:'+229'},
+    {iso:'bt',name:'Bhutan',dial:'+975'},{iso:'bo',name:'Bolivia',dial:'+591'},
+    {iso:'ba',name:'Bosnia & Herzegovina',dial:'+387'},{iso:'bw',name:'Botswana',dial:'+267'},
+    {iso:'br',name:'Brazil',dial:'+55'},{iso:'bn',name:'Brunei',dial:'+673'},
+    {iso:'bg',name:'Bulgaria',dial:'+359'},{iso:'bf',name:'Burkina Faso',dial:'+226'},
+    {iso:'bi',name:'Burundi',dial:'+257'},{iso:'cv',name:'Cabo Verde',dial:'+238'},
+    {iso:'kh',name:'Cambodia',dial:'+855'},{iso:'cm',name:'Cameroon',dial:'+237'},
+    {iso:'ca',name:'Canada',dial:'+1'},{iso:'cf',name:'Central African Republic',dial:'+236'},
+    {iso:'td',name:'Chad',dial:'+235'},{iso:'cl',name:'Chile',dial:'+56'},
+    {iso:'cn',name:'China',dial:'+86'},{iso:'co',name:'Colombia',dial:'+57'},
+    {iso:'km',name:'Comoros',dial:'+269'},{iso:'cd',name:'Congo (DRC)',dial:'+243'},
+    {iso:'cg',name:'Congo (Republic)',dial:'+242'},{iso:'cr',name:'Costa Rica',dial:'+506'},
+    {iso:'hr',name:'Croatia',dial:'+385'},{iso:'cu',name:'Cuba',dial:'+53'},
+    {iso:'cy',name:'Cyprus',dial:'+357'},{iso:'cz',name:'Czech Republic',dial:'+420'},
+    {iso:'dk',name:'Denmark',dial:'+45'},{iso:'dj',name:'Djibouti',dial:'+253'},
+    {iso:'do',name:'Dominican Republic',dial:'+1'},{iso:'ec',name:'Ecuador',dial:'+593'},
+    {iso:'eg',name:'Egypt',dial:'+20'},{iso:'sv',name:'El Salvador',dial:'+503'},
+    {iso:'gq',name:'Equatorial Guinea',dial:'+240'},{iso:'er',name:'Eritrea',dial:'+291'},
+    {iso:'ee',name:'Estonia',dial:'+372'},{iso:'sz',name:'Eswatini',dial:'+268'},
+    {iso:'et',name:'Ethiopia',dial:'+251'},{iso:'fj',name:'Fiji',dial:'+679'},
+    {iso:'fi',name:'Finland',dial:'+358'},{iso:'fr',name:'France',dial:'+33'},
+    {iso:'ga',name:'Gabon',dial:'+241'},{iso:'gm',name:'Gambia',dial:'+220'},
+    {iso:'ge',name:'Georgia',dial:'+995'},{iso:'de',name:'Germany',dial:'+49'},
+    {iso:'gh',name:'Ghana',dial:'+233'},{iso:'gr',name:'Greece',dial:'+30'},
+    {iso:'gt',name:'Guatemala',dial:'+502'},{iso:'gn',name:'Guinea',dial:'+224'},
+    {iso:'gw',name:'Guinea-Bissau',dial:'+245'},{iso:'gy',name:'Guyana',dial:'+592'},
+    {iso:'ht',name:'Haiti',dial:'+509'},{iso:'hn',name:'Honduras',dial:'+504'},
+    {iso:'hu',name:'Hungary',dial:'+36'},{iso:'is',name:'Iceland',dial:'+354'},
+    {iso:'in',name:'India',dial:'+91'},{iso:'id',name:'Indonesia',dial:'+62'},
+    {iso:'ir',name:'Iran',dial:'+98'},{iso:'iq',name:'Iraq',dial:'+964'},
+    {iso:'ie',name:'Ireland',dial:'+353'},{iso:'il',name:'Israel',dial:'+972'},
+    {iso:'it',name:'Italy',dial:'+39'},{iso:'jm',name:'Jamaica',dial:'+1'},
+    {iso:'jp',name:'Japan',dial:'+81'},{iso:'jo',name:'Jordan',dial:'+962'},
+    {iso:'kz',name:'Kazakhstan',dial:'+7'},{iso:'ke',name:'Kenya',dial:'+254'},
+    {iso:'kw',name:'Kuwait',dial:'+965'},{iso:'kg',name:'Kyrgyzstan',dial:'+996'},
+    {iso:'la',name:'Laos',dial:'+856'},{iso:'lv',name:'Latvia',dial:'+371'},
+    {iso:'lb',name:'Lebanon',dial:'+961'},{iso:'ls',name:'Lesotho',dial:'+266'},
+    {iso:'lr',name:'Liberia',dial:'+231'},{iso:'ly',name:'Libya',dial:'+218'},
+    {iso:'li',name:'Liechtenstein',dial:'+423'},{iso:'lt',name:'Lithuania',dial:'+370'},
+    {iso:'lu',name:'Luxembourg',dial:'+352'},{iso:'mg',name:'Madagascar',dial:'+261'},
+    {iso:'mw',name:'Malawi',dial:'+265'},{iso:'my',name:'Malaysia',dial:'+60'},
+    {iso:'mv',name:'Maldives',dial:'+960'},{iso:'ml',name:'Mali',dial:'+223'},
+    {iso:'mt',name:'Malta',dial:'+356'},{iso:'mr',name:'Mauritania',dial:'+222'},
+    {iso:'mu',name:'Mauritius',dial:'+230'},{iso:'mx',name:'Mexico',dial:'+52'},
+    {iso:'fm',name:'Micronesia',dial:'+691'},{iso:'md',name:'Moldova',dial:'+373'},
+    {iso:'mc',name:'Monaco',dial:'+377'},{iso:'mn',name:'Mongolia',dial:'+976'},
+    {iso:'me',name:'Montenegro',dial:'+382'},{iso:'ma',name:'Morocco',dial:'+212'},
+    {iso:'mz',name:'Mozambique',dial:'+258'},{iso:'mm',name:'Myanmar',dial:'+95'},
+    {iso:'na',name:'Namibia',dial:'+264'},{iso:'np',name:'Nepal',dial:'+977'},
+    {iso:'nl',name:'Netherlands',dial:'+31'},{iso:'nz',name:'New Zealand',dial:'+64'},
+    {iso:'ni',name:'Nicaragua',dial:'+505'},{iso:'ne',name:'Niger',dial:'+227'},
+    {iso:'ng',name:'Nigeria',dial:'+234'},{iso:'mk',name:'North Macedonia',dial:'+389'},
+    {iso:'no',name:'Norway',dial:'+47'},{iso:'om',name:'Oman',dial:'+968'},
+    {iso:'pk',name:'Pakistan',dial:'+92'},{iso:'pw',name:'Palau',dial:'+680'},
+    {iso:'pa',name:'Panama',dial:'+507'},{iso:'pg',name:'Papua New Guinea',dial:'+675'},
+    {iso:'py',name:'Paraguay',dial:'+595'},{iso:'pe',name:'Peru',dial:'+51'},
+    {iso:'ph',name:'Philippines',dial:'+63'},{iso:'pl',name:'Poland',dial:'+48'},
+    {iso:'pt',name:'Portugal',dial:'+351'},{iso:'qa',name:'Qatar',dial:'+974'},
+    {iso:'ro',name:'Romania',dial:'+40'},{iso:'ru',name:'Russia',dial:'+7'},
+    {iso:'rw',name:'Rwanda',dial:'+250'},{iso:'sa',name:'Saudi Arabia',dial:'+966'},
+    {iso:'sn',name:'Senegal',dial:'+221'},{iso:'rs',name:'Serbia',dial:'+381'},
+    {iso:'sl',name:'Sierra Leone',dial:'+232'},{iso:'sg',name:'Singapore',dial:'+65'},
+    {iso:'sk',name:'Slovakia',dial:'+421'},{iso:'si',name:'Slovenia',dial:'+386'},
+    {iso:'so',name:'Somalia',dial:'+252'},{iso:'za',name:'South Africa',dial:'+27'},
+    {iso:'ss',name:'South Sudan',dial:'+211'},{iso:'es',name:'Spain',dial:'+34'},
+    {iso:'lk',name:'Sri Lanka',dial:'+94'},{iso:'sd',name:'Sudan',dial:'+249'},
+    {iso:'sr',name:'Suriname',dial:'+597'},{iso:'se',name:'Sweden',dial:'+46'},
+    {iso:'ch',name:'Switzerland',dial:'+41'},{iso:'sy',name:'Syria',dial:'+963'},
+    {iso:'tw',name:'Taiwan',dial:'+886'},{iso:'tj',name:'Tajikistan',dial:'+992'},
+    {iso:'tz',name:'Tanzania',dial:'+255'},{iso:'th',name:'Thailand',dial:'+66'},
+    {iso:'tl',name:'Timor-Leste',dial:'+670'},{iso:'tg',name:'Togo',dial:'+228'},
+    {iso:'to',name:'Tonga',dial:'+676'},{iso:'tt',name:'Trinidad & Tobago',dial:'+1'},
+    {iso:'tn',name:'Tunisia',dial:'+216'},{iso:'tr',name:'Turkey',dial:'+90'},
+    {iso:'tm',name:'Turkmenistan',dial:'+993'},{iso:'ug',name:'Uganda',dial:'+256'},
+    {iso:'ua',name:'Ukraine',dial:'+380'},{iso:'ae',name:'United Arab Emirates',dial:'+971'},
+    {iso:'uy',name:'Uruguay',dial:'+598'},{iso:'uz',name:'Uzbekistan',dial:'+998'},
+    {iso:'vu',name:'Vanuatu',dial:'+678'},{iso:'ve',name:'Venezuela',dial:'+58'},
+    {iso:'vn',name:'Vietnam',dial:'+84'},{iso:'ye',name:'Yemen',dial:'+967'},
+    {iso:'zm',name:'Zambia',dial:'+260'},{iso:'zw',name:'Zimbabwe',dial:'+263'}
+  ];
+
+  /* ══════════════════════════════
+     PHONE — BUILD DROPDOWNS
+  ══════════════════════════════ */
+  function buildDropdowns() {
+    ['stu','par'].forEach(function(type) {
+      var menu = document.getElementById('dd-'+type);
+      if (!menu) return;
+      menu.innerHTML = '';
+      var pinned = COUNTRIES.filter(function(c){ return c.iso==='us'||c.iso==='gb'; });
+      var rest   = COUNTRIES.filter(function(c){ return c.iso!=='us'&&c.iso!=='gb'; });
+
+      function makeItem(c) {
+        var item = document.createElement('div');
+        item.className = 'country-item';
+        item.innerHTML = '<img class="item-flag" src="https://flagcdn.com/w40/'+c.iso+'.png" alt="'+c.name+'">'
+          +'<span class="item-name">'+c.name+'</span>'
+          +'<span class="item-dial">'+c.dial+'</span>';
+        item.addEventListener('click', function() {
+          document.getElementById('flag-'+type).src = 'https://flagcdn.com/w40/us.png';
+          document.getElementById('code-'+type).innerText = '+1';
+          var inp = document.getElementById('input-'+type);
+          if (inp) inp.value = '';
+          closeAllMenus();
+        });
+        return item;
+      }
+
+      pinned.forEach(function(c){ menu.appendChild(makeItem(c)); });
+      var div = document.createElement('div'); div.className='dd-divider'; menu.appendChild(div);
+      rest.forEach(function(c){ menu.appendChild(makeItem(c)); });
+    });
+  }
+
+  function closeAllMenus() {
+    document.querySelectorAll('.phone-container').forEach(function(c){ c.classList.remove('open'); });
+    document.querySelectorAll('.country-dropdown').forEach(function(d){ d.classList.remove('show'); });
+  }
+
+  document.getElementById('sel-stu').addEventListener('click', function() {
+    var dd = document.getElementById('dd-stu');
+    var cont = document.getElementById('cont-stu');
+    var isOpen = dd.classList.contains('show');
+    closeAllMenus();
+    if (!isOpen) { dd.classList.add('show'); cont.classList.add('open'); }
+  });
+  document.getElementById('sel-par').addEventListener('click', function() {
+    var dd = document.getElementById('dd-par');
+    var cont = document.getElementById('cont-par');
+    var isOpen = dd.classList.contains('show');
+    closeAllMenus();
+    if (!isOpen) { dd.classList.add('show'); cont.classList.add('open'); }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.country-selector')) closeAllMenus();
+  });
+
+  buildDropdowns();
+
+  /* ══════════════════════════════
+     PHONE MASK
+  ══════════════════════════════ */
+  document.querySelectorAll('.phone-mask').forEach(function(inp) {
+    inp.addEventListener('input', function(e) {
+      var v = e.target.value.replace(/\D/g,'');
+      if (v.length>10) v=v.slice(0,10);
+      var m = v.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      var f='';
+      if(m[1]) f='('+m[1];
+      if(m[2]) f+=') '+m[2];
+      if(m[3]) f+='-'+m[3];
+      e.target.value=f;
+    });
+  });
+
+  /* ══════════════════════════════
+     DOB AUTO-FORMAT
+  ══════════════════════════════ */
+  var dobInput = document.getElementById('dob-input');
+  if (dobInput) {
+    dobInput.addEventListener('input', function(e) {
+      var v = e.target.value.replace(/\D/g,'');
+      if (v.length>8) v=v.slice(0,8);
+      var out='';
+      if(v.length>=1) out=v.slice(0,2);
+      if(v.length>=3) out+='/'+v.slice(2,4);
+      if(v.length>=5) out+='/'+v.slice(4,8);
+      e.target.value=out;
+    });
+  }
+
+  /* ══════════════════════════════
+     CUSTOM DATE PICKER
+  ══════════════════════════════ */
+  var dpSession  = 0;
+  var dpSelected = [null, null, null];
+  var dpViewYear, dpViewMonth;
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+  function openPicker(session) {
+    dpSession = session;
+    var sel = dpSelected[session-1];
+    if (sel) { dpViewYear=sel.getFullYear(); dpViewMonth=sel.getMonth(); }
+    else { var n=new Date(); dpViewYear=n.getFullYear(); dpViewMonth=n.getMonth(); }
+    renderCalendar();
+    document.getElementById('dp-overlay').classList.add('show');
+  }
+
+  function closePicker() {
+    document.getElementById('dp-overlay').classList.remove('show');
+  }
+
+  function renderCalendar() {
+    document.getElementById('dp-header-title').textContent = 'SESSION '+dpSession;
+    document.getElementById('dp-month-label').textContent = MONTHS[dpViewMonth]+' '+dpViewYear;
+    var daysEl = document.getElementById('dp-days');
+    daysEl.innerHTML = '';
+    var today = new Date(); today.setHours(0,0,0,0);
+    var firstDay = new Date(dpViewYear, dpViewMonth, 1).getDay();
+    var daysInMonth = new Date(dpViewYear, dpViewMonth+1, 0).getDate();
+    var daysInPrev  = new Date(dpViewYear, dpViewMonth, 0).getDate();
+    var sel = dpSelected[dpSession-1];
+
+    for (var i=firstDay-1; i>=0; i--) {
+      var d=document.createElement('div'); d.className='dp-day other-month';
+      d.textContent=daysInPrev-i; daysEl.appendChild(d);
+    }
+    for (var day=1; day<=daysInMonth; day++) {
+      var date=new Date(dpViewYear,dpViewMonth,day); date.setHours(0,0,0,0);
+      var d=document.createElement('div'); d.className='dp-day'; d.textContent=day;
+      if (date.getTime()===today.getTime()) d.classList.add('today');
+      if (sel && date.getTime()===sel.getTime()) d.classList.add('selected');
+      if (date<today) {
+        d.classList.add('disabled');
+      } else {
+        (function(dt){ d.addEventListener('click',function(){ dpSelected[dpSession-1]=dt; renderCalendar(); }); })(date);
+      }
+      daysEl.appendChild(d);
+    }
+    var total=firstDay+daysInMonth, rem=total%7===0?0:7-(total%7);
+    for (var n=1; n<=rem; n++) {
+      var d=document.createElement('div'); d.className='dp-day other-month';
+      d.textContent=n; daysEl.appendChild(d);
+    }
+  }
+
+  function confirmDate() {
+    var sel=dpSelected[dpSession-1];
+    if (!sel) { closePicker(); return; }
+    for (var i=0;i<3;i++) {
+      if (i+1!==dpSession && dpSelected[i] && dpSelected[i].getTime()===sel.getTime()) {
+        alert('Duplicate date! Please choose a different date for SESSION '+dpSession+'.');
+        return;
+      }
+    }
+    document.getElementById('l'+dpSession).innerText =
+      sel.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    closePicker();
+  }
+
+  document.getElementById('btn-s1').addEventListener('click', function(){ openPicker(1); });
+  document.getElementById('btn-s2').addEventListener('click', function(){ openPicker(2); });
+  document.getElementById('btn-s3').addEventListener('click', function(){ openPicker(3); });
+  document.getElementById('dp-prev').addEventListener('click', function(){
+    dpViewMonth--; if(dpViewMonth<0){dpViewMonth=11;dpViewYear--;} renderCalendar();
+  });
+  document.getElementById('dp-next').addEventListener('click', function(){
+    dpViewMonth++; if(dpViewMonth>11){dpViewMonth=0;dpViewYear++;} renderCalendar();
+  });
+  document.getElementById('dp-cancel').addEventListener('click', closePicker);
+  document.getElementById('dp-ok').addEventListener('click', confirmDate);
+  document.getElementById('dp-overlay').addEventListener('click', function(e){
+    if(e.target===this) closePicker();
+  });
+
+  /* ══════════════════════════════
+     TERMS POPUP
+  ══════════════════════════════ */
+  function openTermsPopup()  { document.getElementById('termsPopup').classList.add('show'); document.body.style.overflow='hidden'; }
+  function closeTermsPopup() { document.getElementById('termsPopup').classList.remove('show'); document.body.style.overflow='auto'; }
+
+  document.getElementById('readMoreBtn').addEventListener('click', function(e){ e.preventDefault(); openTermsPopup(); });
+  document.getElementById('popupCloseX').addEventListener('click', closeTermsPopup);
+  document.getElementById('popupCloseBtn').addEventListener('click', closeTermsPopup);
+  document.getElementById('termsPopup').addEventListener('click', function(e){ if(e.target===this) closeTermsPopup(); });
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
